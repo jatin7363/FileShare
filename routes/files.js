@@ -17,10 +17,10 @@ let upload = multer({ storage, limits: { fileSize: 1000000 * 100 }, }).single('m
 router.post('/', (req, res) => {
   console.log('IN / UPLOADING FILE')
   upload(req, res, async (err) => {
-    /* // validation request
+    // validation request
     if (!req.file) {
       return res.json({ error: 'File is required' })
-    } */
+    }
     if (err) {
       return res.status(500).send({ error: err.message });
     }
@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
       size: req.file.size
     });
     const response = await file.save();
-    res.json({ file: `${process.env.APP_BASE_URL}/files/${response.uuid}` });
+    return res.json({ file: `${process.env.APP_BASE_URL}/files/${response.uuid}` });
   });
 });
 
