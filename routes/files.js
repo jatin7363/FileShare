@@ -15,6 +15,7 @@ let storage = multer.diskStorage({
 let upload = multer({ storage, limits: { fileSize: 1000000 * 100 }, }).single('myfile') //100mb
 
 router.post('/', (req, res) => {
+  console.log('IN / CEHCKING')
   // store file
   upload(req, res, async (err) => { // upload's multer
     // validation request
@@ -23,8 +24,8 @@ router.post('/', (req, res) => {
     }
 
     if (err) {
-      return res.status(500).send({ error: err.message })
-      // return res.status(500), send({ error: err.message })
+      // return res.status(500).send({ error: err.message })
+      return res.status(500), send({ error: err.message })
     }
     // store into database
     const file = new File({
@@ -37,8 +38,6 @@ router.post('/', (req, res) => {
     // response -> link
     return res.json({ file: `${process.env.APP_BASE_URL}/files/${response.uuid}` })
   })
-
-
 })
 
 router.post('/send', async (req, res) => { // mail api
@@ -78,4 +77,5 @@ router.post('/send', async (req, res) => { // mail api
   }
 
 })
+
 module.exports = router
