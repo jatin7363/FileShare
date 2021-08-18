@@ -14,7 +14,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({ storage, limits:{ fileSize: 1000000 * 100 }, }).single('myfile'); //100mb
 
-router.post('/', (req, res) => {
+router.post('/', (req, res) => { // server.js will call this  ,  route /api/files/
     upload(req, res, async (err) => {
       if (err) {
         return res.status(500).send({ error: err.message });

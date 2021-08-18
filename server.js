@@ -26,10 +26,12 @@ connectDB();
 
 app.use(express.json());
 
+// Template engine // by this we specify where to pick our frontend pages and with which extension
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
 // Routes 
+app.use('/', require('./routes/index')); // index.js
 app.use('/api/files', require('./routes/files'));
 app.use('/files', require('./routes/show'));
 app.use('/files/download', require('./routes/download'));
